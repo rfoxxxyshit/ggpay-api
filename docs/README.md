@@ -49,7 +49,7 @@ run().catch(console.error)
 
 |Опция |Тип   |Необходимость |Описание                                                                                             |
 |-     |-     |-             |-                                                                                                    |
-|method|String|true          |Название метода, как оно указано в [документации к API](https://vk.com/@vposter-metody-api-vk-point).|
+|method|String|true          |Название метода, как оно указано в [документации к API](https://vk.com/@gg_pay-api-gg-pay).          |
 |params|Object|false         |Параметры, необходимые для метода. (по умолчанию {})                                                 |
 
 ### Метод 'sendPayment'
@@ -68,8 +68,8 @@ run().catch(console.error)
 
 |Опция |Тип   |Необходимость |Описание                                               |
 |-     |-     |-             |-                                                      |
-|toId  |Number|true          |ID пользователя, которму необходимо отправить VK Coins.|
-|amount|Number|true          |Количество VK Point, необходимое для отправки.         |
+|toId  |Number|true          |ID пользователя, которму необходимо отправить GG-монеты|
+|amount|Number|true          |Количество GG-монет, необходимое для отправки.         |
 
 ### Метод 'getUserData'
 

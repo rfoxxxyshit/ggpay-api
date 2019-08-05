@@ -157,7 +157,7 @@ class API {
     return result
   }
   
-  getMerchant (targetId) {
+  async getMerchant (targetId) {
   	if (typeof targetId !== 'number') {
   	  throw new Error(`expected \`targetId\` to be number, got ${typeof targetId}`)
   }
@@ -181,11 +181,11 @@ class API {
       throw new Error(`expected \`amount\` to be number, got ${typeof amount}`)
     }
 
-    return `vk.com/app6748650#u=${this.userId}${amount > 0 ? `&point=${amount}` : ''}${fixation ? '&fixed=true' : ''}`
+    return `vk.com/app7034787#u=${this.userId}${amount > 0 ? `&point=${amount}` : ''}${fixation ? '&fixed=true' : ''}`
   }
 }
 
-module.exports = class VKPoint {
+module.exports = class GGPay {
   constructor (options) {
     if (!options.token) throw new Error('param `token` is required')
     if (!options.userId) throw new Error('param `userId` is required')

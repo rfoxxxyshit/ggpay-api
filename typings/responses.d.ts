@@ -10,39 +10,39 @@ interface IGetTopUserResponse {
 
   last_name: string;
 
-  point: number;
+  money: number;
 
-  balance: number;
+  birzha: {
 
-  balance_set: string;
+    balance: number;
 
-  verified: string;
+    balance_set: string;
+
+    verified: string;
+
+  };
 
 }
 
-interface IGetVipTopUserResponse {
+interface IGetTopGroupResponse {
+  
+  id: number;
 
-  id: string;
-
-  user_id: string;
+  group_id: string;
 
   photo: string;
 
-  first_name: string;
+  name: string;
 
-  last_name: string;
-
-  datetime: string;
-
-  comment: string;
-
-  verified: string;
+  money: number;
 
 }
 
 interface IGetTransactionHistoryUserResponse {
 
-  id: string;
+  id: number;
+
+  pay_id: string;
 
   first_name: string;
 
@@ -50,7 +50,7 @@ interface IGetTransactionHistoryUserResponse {
 
   photo: string;
 
-  datetime: number;
+  unix_time: string;
 
   info: {
 
@@ -58,13 +58,35 @@ interface IGetTransactionHistoryUserResponse {
 
     type_store: string;
 
-    point: number;
+    money: number;
 
     user_id: string;
 
-    datetime: number;
+    unix_time: number;
 
-  }
+  };
+
+}
+
+interface IGetMinersGroupResponse {
+  
+  id: number;
+
+  group_id: string;
+
+  user_id_miner: string;
+
+  mine_info: {
+
+    money_mined_all_time: number;
+
+    last_mine_to_this_group: string;
+
+    count_request: string;
+
+    time_mined_for_this_group: number;
+
+  };
 
 }
 
@@ -72,9 +94,9 @@ export interface IGetTopResponse {
 
   response: {
 
-    count_point: number;
+    all_money: number;
 
-    count_online: string;
+    online: string;
 
     items: Array<IGetTopUserResponse>;
 
@@ -82,13 +104,53 @@ export interface IGetTopResponse {
 
 }
 
-export interface IGetVipTopResponse {
-
+export interface IGetGroupTopResponse {
+  
   response: {
 
-    items: Array<IGetVipTopUserResponse>;
+    money_group_all_count: number;
+
+    online_users_count: string;
+
+    count: number;
+
+    items: Array<IGetTopGroupResponse>;
 
   };
+
+}
+
+export interface IGetGroupDataResponse {
+  
+  response: {
+
+  group_id: string;
+
+  photo: string;
+
+  money: string;
+
+  name: string;
+
+  ban: string;
+
+  };
+
+}
+
+export interface IGetGroupMinersResponse {
+  
+  response: {
+
+    group_id: string;
+
+    money: string;
+
+    count: number;
+
+    miners: Array<IGetMinersGroupResponse>;
+
+  }
 
 }
 
@@ -96,9 +158,9 @@ export interface IGetUserDataResponse {
 
   response: {
 
-    id: string;
-
     user_id: string;
+
+    balance: string:
 
     first_name: string;
 
@@ -106,55 +168,54 @@ export interface IGetUserDataResponse {
 
     photo: string;
 
-    myning: string;
+    banned: string;
 
-    user_agent: string;
+    shop: {
+      
+      tetris: string;
 
-    ban: string;
+      tetris_count: string;
 
-    reason_ban: string;
+      game_mouse: string;
 
-    bot: string;
+      game_mouse_count: string;
 
-    admin: string;
+      gamepad: string;
 
-    verified: string;
+      gamepad_count: string;
 
-    point: number;
+      vr_box: string;
 
-    balance: number;
+      vr_box_count: string;
 
-    balance_set: string;
+      portable_console: string;
 
-    click: string;
+      portable_console_count: string;
 
-    click_count: string;
+      console: "0", 
+      console_count: string;
 
-    summTimeSpeed: string;
+      game_pc: string;
 
-    summTimeSpeed_count: string;
+      game_pc_count: string;
 
-    summTimeZhuk: string;
+    };
 
-    summTimeZhuk_count: string;
+    birzha: {
 
-    summTimeServer: string;
+      balance: string;
 
-    summTimeServer_count: string;
+      balance_set: string;
 
-    summTimeGeympad: string;
+    };
 
-    summTimeGeympad_count: string;
+    last_mined: {
 
-    summTimePlata: string;
+      date: string;
 
-    summTimePlata_count: string;
+      group_id: string;
 
-    summTimeProces: string;
-
-    summTimeProces_count: string;
-
-    date_visit: number;
+    };
 
   };
 
@@ -166,7 +227,7 @@ export interface ISendPaymentResponse {
 
     user_id: string;
 
-    amount: number;
+    amout: number;
 
     user_id_to: string;
 
@@ -178,7 +239,9 @@ export interface IGetTransactionHistoryResponse {
 
   response: {
 
-    count_day: number;
+    count: number;
+
+    count_day: string;
 
     items: Array<IGetTransactionHistoryUserResponse>;
 

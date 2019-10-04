@@ -80,17 +80,41 @@ declare class API {
 
   /**
 
-   * @param count Количество пользователей для вывода
-
-   * @param vip Является ли топ VIP?
+   * @param groupId ID группы, о которой необходимо получить информацию
 
    */
 
-  public getUsersTop(count?: number, vip?: boolean): Promise<Responses.IGetTopResponse | Responses.IGetVipTopResponse>;
+  public getGroupData(groupId: number): Promise<Responses.IGetGroupDataResponse>;
+
+  /**
+
+   * @param groupId ID группы, майнеров которой необходимо получить
+
+   */
+
+  public getGroupMiners(groupId: number): Promise<Responses.IGetGroupMinersResponse>;
+
+  /**
+
+   * @param count Количество пользователей для вывода
+
+   */
+
+  public getUsersTop(count?: number): Promise<Responses.IGetTopResponse;
+
+  /**
+
+   * @param count Количество групп для вывода
+
+   */
+
+  public getGroupsTop(count?: number): Promise<Responses.IGetGroupTopResponse;
+
 
   /**
 
    * @param targetId ID пользователя для получения транзакций
+   * @param count Кол-во переводов от юзера и юзеру
 
    */
 
@@ -98,7 +122,7 @@ declare class API {
 
   /**
 
-   * @param amount - Количество GGPay
+   * @param amount - Количество GGPay монет
 
    * @param fixation - Является ли сумма GGPay монет фиксированной?
 
@@ -106,19 +130,10 @@ declare class API {
 
   public generateLink(amount?: number, fixation?: boolean): string;
 
-  
-
-  /**
-
-  * @param targetId - ID пользователя для получения кол-ва отправленных монет
-
-  */
-
-  public getMerchant(targetId: number): Promise<Responses.IGetMechantResponse>;
 
 }
 
-declare class VKPoint {
+declare class GGPay {
 
   public updates: Updates;
 
@@ -132,11 +147,11 @@ declare class VKPoint {
 
    */
 
-  constructor(options: Params.IVKPointParams);
+  constructor(options: Params.IGGPayParams);
 
 }
 
-export default VKPoint;
+export default GGPay;
 
-export { VKPoint };
+export { GGPay };
 

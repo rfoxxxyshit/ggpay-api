@@ -26,12 +26,11 @@ class Updates {
     }
 
     let params = {
-      user_id: this.userId,
-      callback: `${url}:${port}${path}`,
       access_token: this.token,
+      url: `${url}:${port}${path}`,
     }
 
-    let result = await request(`https://saind.ru/api/method/account.changeSettings.php?${Object.entries(params).map(e => e.join('=')).join('&')}`)
+    let result = await request(`http://saind.ru/dev/method/callback.set.php?${Object.entries(params).map(e => e.join('=')).join('&')}`)
 
     if (!result.error) {
       this.isStarted = true
@@ -67,9 +66,23 @@ class API {
       throw new Error('param `method` is required')
     }
 
-    params = Object.assign({ access_token: this.token }, params)
+    params = Object.assign(params)
 
-    const result = await request(`https://saind.ru/api/method/${method}.php?${Object.entries(params).map(e => e.join('=')).join('&')}`)
+    const result = await request(`http://saind.ru/dev/method/${method}.php?${Object.entries(params).map(e => e.join('=')).join('&')}`)
+
+    if (result.error) {
+      throw new Error(result.error)
+    }
+
+    return result
+  }
+
+  async getWebhook () {
+    const params = {
+      access_token: this.token
+    }
+
+    const result = await this.call('callback.get', params)
 
     if (result.error) {
       throw new Error(result.error)
@@ -88,12 +101,12 @@ class API {
     }
 
     const params = {
-      user_id_to: this.userId,
       user_id: toId,
-      point: amount,
+      money: amount,
+      user_token_bank: this.token
     }
 
-    const result = await this.call('account.MerchantSend', params)
+    const result = await this.call('users.MerchantSend', params)
 
     if (result.error) {
       throw new Error(result.error)
@@ -111,7 +124,7 @@ class API {
       user_id: targetId,
     }
 
-    const result = await this.call('account.getPoint', params)
+    const result = await this.call('users.getInfo', params)
 
     if (result.error) {
       throw new Error(result.error)
@@ -120,17 +133,17 @@ class API {
     return result
   }
 
-  async getUsersTop (count = 50, vip = false) {
+  async getUsersTop (count = 50) {
     if (typeof targetId !== 'number') {
       throw new Error(`expected \`targetId\` to be number, got ${typeof targetId}`)
     }
 
     const params = {
-      count: count,
+      access_token: this.token,
+      count: count
     }
 
-    let method = vip ? 'getTopVip' : 'getTop'
-    let result = await this.call(`users.${method}`, params)
+    let result = await this.call(`users.getTop`, params)
 
     if (result.error) {
       throw new Error(result.error)
@@ -139,16 +152,18 @@ class API {
     return result
   }
 
-  async getTransactionHistory (targetId = this.userId) {
+  async getTransactionHistory (targetId = this.userId, count = 100) {
     if (typeof targetId !== 'number') {
       throw new Error(`expected \`targetId\` to be number, got ${typeof targetId}`)
     }
 
     const params = {
+      access_token: this.token,
       user_id: targetId,
+      count: count
     }
 
-    let result = await this.call(`users.HistoryTransactions`, params)
+    let result = await this.call(`users.historyTransaction`, params)
 
     if (result.error) {
       throw new Error(result.error)
@@ -157,31 +172,69 @@ class API {
     return result
   }
   
-  async getMerchant (targetId) {
-  	if (typeof targetId !== 'number') {
-  	  throw new Error(`expected \`targetId\` to be number, got ${typeof targetId}`)
+  async getGroupsTop (count = 100) {
+    if (typeof count !== 'number') {
+      throw new Error(`expected \`count\` to be number, got ${typeof count}`)
+    }
+
+    const params = {
+      access_token: this.token,
+      count: count
+    }
+
+    const result = await this.call('groups.getTop', params)
+
+    if (result.error) {
+      throw new Error(result.error)
+    }
+
+    return result
   }
-  
-  const params = {
-  	user_id: targetId,
-      user_id_to: this.userId,
-      }
-      
-      let result = await this.call(`account.MerchantGet`, params)
-      
-      if (result.error) {
-      	throw new Error(result.error)
-      }
-      
-      return result
-     }
+
+  async getGroupData (groupId) {
+    if (typeof groupId !== 'number') {
+      throw new Error(`expected \`groupId\` to be number, got ${typeof groupId}`)
+    }
+
+    const params = {
+      access_token: this.token,
+      group_id: groupId
+    }
+
+    const result = await this.call('groups.getInfoById', params)
+
+    if (result.error) {
+      throw new Error(result.error)
+    }
+
+    return result
+  }
+
+  async getGroupMiners (groupId) {
+    if (typeof groupId !== 'number') {
+      throw new Error(`expected \`groupId\` to be number, got ${typeof groupId}`)
+    }
+
+    const params = {
+      access_token: this.token,
+      group_id: groupId
+    }
+
+    const result = await this.call('groups.getMinersById', params)
+
+    if (result.error) {
+      throw new Error(result.error)
+    }
+
+    return result
+  }
 
   generateLink (amount = 0, fixation = false) {
     if (typeof amount !== 'number') {
       throw new Error(`expected \`amount\` to be number, got ${typeof amount}`)
     }
 
-    return `vk.com/app7034787#u=${this.userId}${amount > 0 ? `&point=${amount}` : ''}${fixation ? '&fixed=true' : ''}`
+    return `vk.com/app7034787#u=${this.userId}${fixation ? '&fixed' : ''}${amount > 0 ? `&money=${amount}` : ''}`
   }
 }
 

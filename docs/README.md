@@ -49,8 +49,25 @@ run().catch(console.error)
 
 |Опция |Тип   |Необходимость |Описание                                                                                             |
 |-     |-     |-             |-                                                                                                    |
-|method|String|true          |Название метода, как оно указано в [документации к API](https://vk.com/@gg_pay-api-gg-pay).          |
+|method|String|true          |Название метода, как оно указано в [документации к API](https://saind.ru/dev/).          |
 |params|Object|false         |Параметры, необходимые для метода. (по умолчанию {})                                                 |
+
+### Метод 'getWebhook'
+
+`getWebhook` - получение информации об установленном вебхуке
+
+```js
+async function run () {
+  const result = await ggpay.api.getWebhook() // Получаем информацию об установленном вебхуке с серверов GGPay
+
+  console.log(result) // Выводим результат в консоль
+}
+
+run().catch(console.error)
+```
+
+|Опция |Тип   |Необходимость |Описание                                               |
+|-     |-     |-             |-                                                      |
 
 ### Метод 'sendPayment'
 
@@ -91,11 +108,11 @@ run().catch(console.error)
 
 ### Метод 'getUsersTop'
 
-`getUsersTop` - получение данных о таблице рейтингов пользователей VK Point.
+`getUsersTop` - получение данных о таблице рейтингов пользователей GG Pay.
 
 ```js
 async function run () {
-  const result = await ggpay.api.getUsersTop(5, true) // Получаем ТОП-5 ВИП пользователей
+  const result = await ggpay.api.getUsersTop(5) // Получаем ТОП-5 пользователей
 
   console.log(result)
 }
@@ -106,7 +123,6 @@ run().catch(console.error)
 |Опция |Тип    |Необходимость |Описание                                                        |
 |-     |-      |-             |-                                                               |
 |count |Number |false         |Количество пользователей (по умолчанию 50)                      |
-|vip   |Boolean|false         |Возвращает топ VIP пользователей, если true (по умолчанию false)|
 
 ### Метод 'getTransactionHistory'
 
@@ -125,24 +141,59 @@ run().catch(console.error)
 |Опция   |Тип   |Необходимость |Описание                                                              |
 |-       |-     |-             |-                                                                     |
 |targetId|Number|false         |ID пользователя для получения истории переводов (по умолчанию ID бота)|
+|count|Number|false            |Кол-во переводов для отображения(по умолчанию 100)
 
-### Метод 'getMerchant'
+### Метод 'getGroupsTop'
 
-`getMerchant` - получение информации о том, сколько отправлено монет GG Pay пользователю (переводы)
+`getGroupsTop` - получение данных о таблице рейтингов групп GG Pay.
 
 ```js
 async function run () {
-  const result = await ggpay.api.getMerchant(1) // Получаем информацию о том, сколько было переведено GG-монет пользователю с @id1 (Павел Дуров)
-  
+  const result = await ggpay.api.getGroupsTop(5) // Получаем ТОП-5 групп
+
   console.log(result)
 }
 
 run().catch(console.error)
 ```
 
-|Опция   |Тип   |Необходимость |Описание                                                              |
-|-       |-     |-             |-                                                                     |
-|targetId|Number|true         |ID пользователя для получения кол-ва отправленных монет|
+|Опция |Тип    |Необходимость |Описание                                                        |
+|-     |-      |-             |-                                                               |
+|count |Number |false         |Количество групп (по умолчанию 100)
+
+### Метод 'getGroupData'
+
+`getGroupData` - получение данных о группе.
+
+```js
+async function run () {
+  const result = await ggpay.api.getGroupData(184624910) // Получаем даныне из базы данных GGPay о группе с ID 184624910 (GG Pay)
+
+  console.log(result)
+}
+
+run().catch(console.error)
+```
+
+|Опция   |Тип   |Необходимость |Описание                                         |
+|-       |-     |-             |-                                                |
+|groupId |Number|true          |ID группы, о которой нужно получить данные       |  
+
+`getGroupMiners` - получение данных о пользователе.
+
+```js
+async function run () {
+  const result = await ggpay.api.getGroupMiners(184624910) // Получаем даныне из базы данных GGPay о майнерах в группе с ID 184624910 (GG Pay)
+
+  console.log(result)
+}
+
+run().catch(console.error)
+```
+
+|Опция   |Тип   |Необходимость |Описание                                         |
+|-       |-     |-             |-                                                |
+|groupId |Number|true          |ID группы, о майнерах которой нужно получить данные|  
 
 ### Метод 'generateLink'
 

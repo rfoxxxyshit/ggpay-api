@@ -20,7 +20,7 @@ vk.setOptions({
 
 vk.updates.on(['new_message'], async (context, next) => { // Отлавливаем новые сообщения
 
-  if (context.text === 'бонус') { //
+  if (context.text === 'дайти деняк') { //
 
     await ggpay.api.sendPayment(context.senderId, 10000)
 

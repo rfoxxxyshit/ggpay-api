@@ -18,5 +18,9 @@
     <a href="https://github.com/rfoxxxyshit/ggpay-api/issues">Report Bug</a>
     ·
     <a href="https://github.com/rfoxxxyshit/ggpay-api/issues">Request Feature</a>
+    <br />
+    <br />
+    <p align="right">Dev. VK group:</p>
+    <p align="right"><a href="https://vk.com/rfoxxxyzstudio"><img src="https://pzdccraft.com/files/rfoxxxyzstudio.png" width="180" height="26" alt="dev group"></a></p>
   </p>
 </p>

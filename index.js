@@ -102,7 +102,7 @@ class API {
 
     const params = {
       user_id: toId,
-      money: amount,
+      amout: amount,
       user_token_bank: this.token
     }
 
@@ -121,6 +121,7 @@ class API {
     }
 
     const params = {
+      access_token: this.token
       user_id: targetId,
     }
 

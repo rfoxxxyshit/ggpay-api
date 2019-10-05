@@ -103,7 +103,7 @@ class API {
     const params = {
       user_id: toId,
       amout: amount,
-      user_token_bank: this.token
+      access_token: this.token
     }
 
     const result = await this.call('users.merchantSend', params)
@@ -121,8 +121,8 @@ class API {
     }
 
     const params = {
-      access_token: this.token
-      user_id: targetId,
+      access_token: this.token,
+      user_id: targetId
     }
 
     const result = await this.call('users.getInfo', params)

@@ -106,7 +106,7 @@ class API {
       user_token_bank: this.token
     }
 
-    const result = await this.call('users.MerchantSend', params)
+    const result = await this.call('users.merchantSend', params)
 
     if (result.error) {
       throw new Error(result.error)
